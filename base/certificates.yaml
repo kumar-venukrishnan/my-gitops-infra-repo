@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: sample-app-cert
+  name: demo-app-cert
   namespace: default
 spec:
-  secretName: sample-app-tls
+  secretName: demo-app-tls
   issuerRef:
-    name: your-vault-or-ca-issuer # Replace with your actual issuer name
+    name: myorg-secure-backend
     kind: ClusterIssuer
   dnsNames:
-  - "sample-app.local"
+  - "demo-app.myorg.local"
