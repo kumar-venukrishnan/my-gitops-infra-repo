@@ -12,15 +12,23 @@ spec:
     metadata:
       labels:
         app: demo
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "demo-app"
+        vault.hashicorp.com/agent-inject-secret-db-password: "secret/data/myorg/demo-app"
+        vault.hashicorp.com/agent-inject-file-db-password: "db-password"
+        vault.hashicorp.com/agent-inject-template-db-password: |
+          {{- with secret "secret/data/myorg/demo-app" -}}
+          {{ .Data.data.api-key }}
+          {{- end }}
     spec:
       containers:
       - name: web-app
         image: nginx:alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            export DATABASE_PASSWORD="$(cat /vault/secrets/db-password)"
+            exec nginx -g 'daemon off;'
         ports:
         - containerPort: 80
-        env:
-        - name: DATABASE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: native-k8s-secret
-              key: db-password
