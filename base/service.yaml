@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-app-service
+  name: demo-service
   namespace: default
 spec:
   ports:
@@ -9,4 +9,4 @@ spec:
     targetPort: 80
     protocol: TCP
   selector:
-    app: sample-app
+    app: demo
