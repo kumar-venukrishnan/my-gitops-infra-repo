@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sample-app-cert
+  namespace: default
+spec:
+  secretName: sample-app-tls
+  issuerRef:
+    name: your-vault-or-ca-issuer # Replace with your actual issuer name
+    kind: ClusterIssuer
+  dnsNames:
+  - "sample-app.local"
