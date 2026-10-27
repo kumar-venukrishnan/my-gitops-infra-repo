@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sample-workload
+  name: demo-app
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/kumar-venukrishnan/argocd-example-apps.git' # Replace with your actual repo
-    targetRevision: HEAD
+    repoURL: 'https://github.com/kumar-venukrishnan/my-gitops-infra-repo.git'
+    targetRevision: main
     path: base
   destination:
     server: 'https://kubernetes.default.svc'
