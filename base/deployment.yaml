@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo
-  namespace: default
+  namespace: demo
 spec:
   replicas: 1
   selector:
@@ -22,6 +22,7 @@ spec:
           {{ .Data.data.api-key }}
           {{- end }}
     spec:
+      serviceAccountName: demo-app
       containers:
       - name: web-app
         image: nginx:alpine
